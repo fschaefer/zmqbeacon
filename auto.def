@@ -1,0 +1,20 @@
+# vim:se syn=tcl:
+
+use cc cc-shared
+
+options {}
+
+define PACKAGE_NAME "zmqbeacon"
+define PACKAGE_VERSION 0.1
+
+cc-check-includes stdio.h string.h getopt.h
+
+cc-check-functions sleep geteuid
+
+cc-check-function-in-lib zmq_init zmq
+cc-check-function-in-lib zctx_new czmq
+
+cc-check-tools ar ranlib strip
+
+make-config-header config.h -auto {ENABLE_* PACKAGE_*}
+make-template Makefile.in

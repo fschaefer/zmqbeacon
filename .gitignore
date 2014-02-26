@@ -1,0 +1,5 @@
+zmqbeacon
+*.o
+/Makefile
+config.log
+config.h
