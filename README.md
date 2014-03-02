@@ -6,25 +6,26 @@ Usage speaks more or less for itself:
 
       Usage for LAN service announcement:
       zmqbeacon -a announcement [-i interval]
-        -i : beaconing interval in ms (default: 1000)
-        -a : announcement to send;
-             Instead of -a, the announcement can be set
-             via environment variable ZMQBEACON_DATA.
+        -i  --interval     : beaconing interval in ms (default: 1000)
+        -a  --announcement : announcement to send;
+                             Instead of -a, the announcement can be set
+                             via environment variable ZMQBEACON_DATA.
 
       Usage for LAN service discovery:
       zmqbeacon -l [-t timeout] [-s filter] [-r repeat] [-c command]
-        -l : listen for beacons to arrive
-        -t : wait for at most ms (default: -1 = forever)
-        -s : subscribe to messages; no filter gets everything
-        -r : repeat listening to beacons (default: 1)
-        -c : execute shell command if a message is received;
-             Received data is stored in environment variables
-             ZMQBEACON_IP and ZMQBEACON_DATA.
+        -l  --listen       : listen for beacons to arrive
+        -t  --timeout      : wait for at most ms (default: -1 = forever)
+        -s  --subscribe    : subscribe to messages; no filter gets everything
+        -r  --repeat       : repeat listening to beacons (default: 1)
+        -c  --command      : execute shell command if a message is received;
+                             Received data is stored in environment variables
+                             ZMQBEACON_IP and ZMQBEACON_DATA.
 
       Additional options for both modes:
       zmqbeacon ... [-p port] [-v]
-        -p : UDP port (default: 5670)
-        -v : verbose output to stderr
+        -p  --port         : UDP port (default: 5670)
+        -v  --verbose      : verbose output to stderr
+        -h  --help         : display this usage information
 
 ### License ###
     Copyright 2014 Florian Schäfer <florian.schaefer@gmail.com>

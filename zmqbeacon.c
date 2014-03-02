@@ -42,25 +42,26 @@ print_usage()
     fprintf(stderr, "\n");
     fprintf(stderr, "  Usage for LAN service announcement:\n");
     fprintf(stderr, "  %s -a announcement [-i interval]\n", PACKAGE_NAME);
-    fprintf(stderr, "    -i : beaconing interval in ms (default: 1000)\n");
-    fprintf(stderr, "    -a : announcement to send;\n");
-    fprintf(stderr, "         Instead of -a, the announcement can be set\n");
-    fprintf(stderr, "         via environment variable ZMQBEACON_DATA.\n");
+    fprintf(stderr, "    -i  --interval     : beaconing interval in ms (default: 1000)\n");
+    fprintf(stderr, "    -a  --announcement : announcement to send;\n");
+    fprintf(stderr, "                         Instead of -a, the announcement can be set\n");
+    fprintf(stderr, "                         via environment variable ZMQBEACON_DATA.\n");
     fprintf(stderr, "\n");
     fprintf(stderr, "  Usage for LAN service discovery:\n");
     fprintf(stderr, "  %s -l [-t timeout] [-s filter] [-r repeat] [-c command]\n", PACKAGE_NAME);
-    fprintf(stderr, "    -l : listen for beacons to arrive\n");
-    fprintf(stderr, "    -t : wait for at most ms (default: -1 = forever)\n");
-    fprintf(stderr, "    -s : subscribe to messages; no filter gets everything\n");
-    fprintf(stderr, "    -r : repeat listening to beacons (default: 1)\n");
-    fprintf(stderr, "    -c : execute shell command if a message is received;\n");
-    fprintf(stderr, "         Received data is stored in environment variables\n");
-    fprintf(stderr, "         ZMQBEACON_IP and ZMQBEACON_DATA.\n");
+    fprintf(stderr, "    -l  --listen       : listen for beacons to arrive\n");
+    fprintf(stderr, "    -t  --timeout      : wait for at most ms (default: -1 = forever)\n");
+    fprintf(stderr, "    -s  --subscribe    : subscribe to messages; no filter gets everything\n");
+    fprintf(stderr, "    -r  --repeat       : repeat listening to beacons (default: 1)\n");
+    fprintf(stderr, "    -c  --command      : execute shell command if a message is received;\n");
+    fprintf(stderr, "                         Received data is stored in environment variables\n");
+    fprintf(stderr, "                         ZMQBEACON_IP and ZMQBEACON_DATA.\n");
     fprintf(stderr, "\n");
     fprintf(stderr, "  Additional options for both modes:\n");
     fprintf(stderr, "  %s ... [-p port] [-v]\n", PACKAGE_NAME);
-    fprintf(stderr, "    -p : UDP port (default: 5670)\n");
-    fprintf(stderr, "    -v : verbose output to stderr\n");
+    fprintf(stderr, "    -p  --port         : UDP port (default: 5670)\n");
+    fprintf(stderr, "    -v  --verbose      : verbose output to stderr\n");
+    fprintf(stderr, "    -h  --help         : display this usage information\n");
     fprintf(stderr, "\n");
 }
 
@@ -86,8 +87,23 @@ main(int argc, char *argv[])
     int port = 5670;
     int verbose = 0;
 
+    const char* const short_options = "a:i:lt:s:r:c:p:v";
+    const struct option long_options[] = {
+        { "interval",     1, NULL, 'i' },
+        { "announcement", 1, NULL, 'a' },
+        { "listen",       1, NULL, 'l' },
+        { "timeout",      1, NULL, 't' },
+        { "subscribe",    1, NULL, 's' },
+        { "repeat",       1, NULL, 'r' },
+        { "command",      1, NULL, 'c' },
+        { "port",         1, NULL, 'p' },
+        { "verbose",      0, NULL, 'v' },
+        { "help",         0, NULL, 'h' },
+        { NULL,           0, NULL,  0  }
+    };
+
     char c;
-    while ((c = getopt(argc, argv, "a:i:lt:s:r:c:p:v")) != -1) {
+    while ((c = getopt_long(argc, argv, short_options, long_options, NULL)) != -1) {
         switch (c) {
         case 'a':
             announcement = optarg;
