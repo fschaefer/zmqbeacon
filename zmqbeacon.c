@@ -207,7 +207,7 @@ main(int argc, char *argv[])
             free(ipaddress);
             free(data);
 
-        } while (--repeat != 0 && zctx_interrupted == 0);
+        } while ((repeat < 0 || --repeat != 0) && zctx_interrupted == 0);
 
         unsetenv("ZMQBEACON_IP");
         unsetenv("ZMQBEACON_DATA");
