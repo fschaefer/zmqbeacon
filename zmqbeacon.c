@@ -160,7 +160,8 @@ main(int argc, char *argv[])
     }
 #endif
 
-    zbeacon_t* beacon = zbeacon_new(port);
+    zctx_t *ctx = zctx_new();
+    zbeacon_t* beacon = zbeacon_new(ctx, port);
 
     if (mode == ZMQBEACON_PUBLISH) {
 
